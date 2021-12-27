@@ -1,0 +1,5 @@
+[user]
+	name = Benjaminas Visockis
+	email = benjamvi@stud.ntnu.no
+[credential]
+	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
