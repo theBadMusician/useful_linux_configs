@@ -1,0 +1,104 @@
+[global_config]
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+  [[image_processing]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_term = 438757c2-1443-488a-99cc-c1e74fa6ba27
+      last_active_window = True
+      maximised = True
+      order = 0
+      parent = ""
+      position = 0:0
+      size = 1920, 1163
+      title = vortex@Stormtrooper-PC: ~/vortex_ws/src/Vortex_CV
+      type = Window
+    [[[child1]]]
+      order = 0
+      parent = child0
+      position = 578
+      ratio = 0.499136442142
+      type = VPaned
+    [[[child11]]]
+      order = 1
+      parent = child7
+      position = 290
+      ratio = 0.500863557858
+      type = VPaned
+    [[[child2]]]
+      order = 0
+      parent = child1
+      position = 958
+      ratio = 0.500261096606
+      type = HPaned
+    [[[child5]]]
+      order = 1
+      parent = child1
+      position = 958
+      ratio = 0.500261096606
+      type = HPaned
+    [[[child7]]]
+      order = 1
+      parent = child5
+      position = 284
+      ratio = 0.297071129707
+      type = HPaned
+    [[[child8]]]
+      order = 0
+      parent = child7
+      position = 290
+      ratio = 0.500863557858
+      type = VPaned
+    [[[terminal10]]]
+      order = 1
+      parent = child8
+      profile = default
+      type = Terminal
+      uuid = dafdc367-680f-43ce-8d8c-c07304c5126e
+    [[[terminal12]]]
+      order = 0
+      parent = child11
+      profile = default
+      type = Terminal
+      uuid = dbac69dc-1b5a-45a9-8a9e-5858902aa7a7
+    [[[terminal13]]]
+      order = 1
+      parent = child11
+      profile = default
+      type = Terminal
+      uuid = 0ca6cc58-3a20-4990-ab90-4f0c2e60e0e0
+    [[[terminal3]]]
+      order = 0
+      parent = child2
+      profile = default
+      type = Terminal
+      uuid = 0e3c9556-c92d-4767-8be1-4bf6c2710fd1
+    [[[terminal4]]]
+      order = 1
+      parent = child2
+      profile = default
+      type = Terminal
+      uuid = 438757c2-1443-488a-99cc-c1e74fa6ba27
+    [[[terminal6]]]
+      order = 0
+      parent = child5
+      profile = default
+      type = Terminal
+      uuid = 3d1d91f6-fa3f-4cbb-b18f-5957dfac821a
+    [[[terminal9]]]
+      order = 0
+      parent = child8
+      profile = default
+      type = Terminal
+      uuid = 6d0a5e57-4d06-471a-bc0f-b995a29be2c7
+[plugins]
+[profiles]
+  [[default]]
+    cursor_color = "#aaaaaa"
