@@ -11,6 +11,12 @@ alias rosmastertrooper='export ROS_MASTER_URI=http://129.241.187.21:11311'
 # SSH shortcuts
 alias sshtrooper="ssh vortex@Stormtrooper-PC -X"
 
+# Git update branches
+alias git_branch_update="git remote update origin --prune"
+
+# Shortcut
+alias unzip="tar -xvzf"
+
 # Other
 alias gotovortex="cd ~/projects/vortex/vortex_ws/src"
 alias gotozed="cd ~/projects/vortex/zed_ws/src"
