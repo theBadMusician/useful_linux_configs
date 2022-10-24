@@ -40,3 +40,5 @@ alias xcopy="xclip -selection clipboard"
 alias lsdu="ls | xargs du -sh"
 
 aias gource_viz="gource -a 0.01 -s 0.001 --max-files 0"
+
+alias wifi_str="watch -n1 iwconfig"
