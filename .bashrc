@@ -142,7 +142,4 @@ source /opt/ros/$ROS_DISTRO/setup.bash
 export ROS_IP=192.168.1.97
 export ROS_HOSTNAME=192.168.1.97
 
-# server-side auto tmux ssh session
-#if [[ -n "$PS1" ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
-#  tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
-#fi
+if tmux ls 2>&1 | grep '/tmp/tmux-1000/default' -q; then tmux ; fi
