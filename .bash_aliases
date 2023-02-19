@@ -35,6 +35,10 @@ function dexec() {
   sudo docker exec -it $1 /bin/bash
 }
 
+function rm_docker_dangling_images() {
+  docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+}
+
 # Shortcuts
 alias xcopy="xclip -selection clipboard"
 alias lsdu="ls | xargs du -sh"
