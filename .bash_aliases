@@ -43,3 +43,6 @@ aias gource_viz="gource -a 0.01 -s 0.001 --max-files 0"
 
 alias wifi_str="sudo watch -n1 iwconfig"
 
+function loop_video() {
+  mplayer -fs -loop 0 $1
+}
