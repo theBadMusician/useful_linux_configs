@@ -4,7 +4,9 @@ alias wlan_ip="ifconfig wlp0s20f3 | awk '/inet / {print \$2;}'"
 
 # ROS
 alias srcdev='source ./devel/setup.bash'
-alias rosmastertrooper='export ROS_MASTER_URI=http://129.241.187.21:11311'
+function rosmasterexport() {
+  export ROS_MASTER_URI=http://$1:11311
+}
 alias rosgetactionservers='rostopic list | grep -o -P "^.*(?=/feedback)"'
 
 # SSH shortcuts
@@ -49,3 +51,5 @@ alias wifi_str="sudo watch -n1 iwconfig"
 function loop_video() {
   mplayer -fs -loop 0 $1
 }
+
+alias tmuxattach="tmux attach"
