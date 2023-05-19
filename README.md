@@ -1,4 +1,4 @@
-# My configs for Linux environment
+# Useful scripts, configs, and other goodies for Linux environment
 
 ## Enable global tty read/write privileges for all users
 
