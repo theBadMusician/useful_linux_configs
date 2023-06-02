@@ -19,6 +19,7 @@ alias sshtrooper="ssh vortex@Stormtrooper-PC -X"
 
 # ========[ git ]======== #
 alias git_branch_update="git remote update origin --prune"
+alias git_tree="git log --graph --oneline --decorate"
 
 # ========[ cd ]======== #
 alias gotovortex="cd ~/projects/vortex/vortex_ws/src"
