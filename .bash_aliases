@@ -2,6 +2,9 @@
 alias myip='curl ipinfo.io/ip && printf "\n"'
 alias wlan_ip="ifconfig wlp0s20f3 | awk '/inet / {print \$2;}'"
 alias wifi_str="sudo watch -n1 iwconfig"
+alias restart_networking="sudo /etc/init.d/networking restart"
+alias cisco_vpn="sudo openconnect vpn.ntnu.no "
+
 # FIX: alias nmap_mac="nmap_mac() {sudo nmap -sP "$1"/24 | awk '/Nmap scan report for/{printf $5;}/MAC Address:/{print ' => '$3;}' | sort;}"
 
 # ========[ ROS ]======== #
