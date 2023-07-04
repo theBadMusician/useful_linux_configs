@@ -1,5 +1,7 @@
 # Useful scripts, configs, and other goodies for Linux environment
 
+---
+
 ## Enable global tty read/write privileges for all users
 
 Run the following command in the terminal:
@@ -14,6 +16,7 @@ KERNEL=="ttyACM[0-9]*",MODE="0666"
 KERNEL=="tty[0-99]*",MODE="0666"
 KERNEL=="ttyS[0-99]*",MODE="0666"
 ```
+---
 
 ## Install multiple python versions on a Linux machine
 Installing multiple versions of Python on a Linux machine can be done through a variety of ways. Here, I'll describe how you can do this using the pyenv utility, which allows you to easily switch between different Python versions.
