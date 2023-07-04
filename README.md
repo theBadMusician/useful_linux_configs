@@ -88,6 +88,14 @@ To switch between Python versions on the fly, you can use the `pyenv shell` comm
 pyenv shell 3.8.5
 ```
 
+Add the following to .bashrc:
+
+```
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+```
+
 This makes Python 3.8.5 the default Python for the current terminal session.
 
 Remember to replace `3.6.9` and `3.8.5` with the actual versions of Python that you want to use. If you're not sure which versions of Python are installed, you can list them with `pyenv versions`.
