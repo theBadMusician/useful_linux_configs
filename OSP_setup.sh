@@ -43,4 +43,5 @@ conan lock create conanfile.py -s build_type=Debug -s compiler.libcxx=libstdc++1
 mv conan.lock conan-linux64.lock
 python3 -m pip install ..
 
-# When building catkin workspace: pip uninstall em && pip install empy 
+# To build catkin workspace: pip uninstall em && pip install empy
+# To run python program: sudo pip install --target=/opt/ros/noetic/lib/python3/dist-packages rospkg
