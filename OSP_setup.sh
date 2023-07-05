@@ -44,4 +44,4 @@ mv conan.lock conan-linux64.lock
 python3 -m pip install ..
 
 # To build catkin workspace: pip uninstall em && pip install empy
-# To run python program: sudo pip install --target=/opt/ros/noetic/lib/python3/dist-packages rospkg
+# To run python program: printf "export PYTHONPATH=$PYTHONPATH:~/.pyenv/versions/3.9.17/lib/python3.9/site-packages" >> ~/.bashrc && sudo pip install --target=/opt/ros/noetic/lib/python3/dist-packages rospkg
