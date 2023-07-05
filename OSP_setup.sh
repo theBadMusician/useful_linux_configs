@@ -42,3 +42,5 @@ cd ../.. && cd libcosimpy && cd conan/
 conan lock create conanfile.py -s build_type=Debug -s compiler.libcxx=libstdc++11
 mv conan.lock conan-linux64.lock
 python3 -m pip install ..
+
+# When building catkin workspace: pip uninstall em && pip install empy 
