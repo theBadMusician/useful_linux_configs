@@ -130,16 +130,26 @@ fi
 #wlan_ip(){ ifconfig wlp0s20f3  | awk '/inet / {print \$2}'; }
 
 # ROS sources
-source /opt/ros/$ROS_DISTRO/setup.bash
-#source ~/projects/vortex/vortex_ws/devel/setup.bash
-#source ~/projects/vortex/zed_ws/devel/setup.bash
-
-# ROS SSH setup
-# NTNU Wi-Fi
-#export ROS_IP=10.22.229.61
-#export ROS_HOSTNAME=10.22.229.61
+source /opt/ros/noetic/setup.bash
 
 export ROS_IP=192.168.1.97
 export ROS_HOSTNAME=192.168.1.97
 
 if tmux ls 2>&1 | grep '/tmp/tmux-1000/default' -q; then tmux ; fi
+
+export PATH=$PATH:/usr/local/MATLAB/R2021b/bin/
+export LIB=lib/x86_64-linux-gnu
+
+. ~/projects/vortex/vortex_ws/devel/setup.bash
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv virtualenv-init -)"
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+export PYTHONPATH=$PYTHONPATH:~/.pyenv/versions/3.10.12/lib/python3.10/site-packag>
+
+
