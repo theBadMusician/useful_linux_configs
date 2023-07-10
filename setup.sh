@@ -5,7 +5,7 @@
 # Chromium
 # Foxglove
 
-# Download packages
+# Install packages
 sudo apt update
 sudo apt install -y --upgrade azure-cli baobab ca-certificates net-tools cython3 gnome-tweaks dkms curl doxygen dpkg-dev dpkg firefox gnupg googletest hostname htop iputils-ping iputils-ping iputils-tracepath openconnect openssh-client openssh-server perl pulseaudio udev vim wget simplescreenrecorder trash-cli nmap 
 # Optional: audacity
@@ -31,13 +31,17 @@ cat ~/useful_linux_configs/.tmux.conf > ~/.tmux.conf
 tmux source ~/.tmux.conf
 
 # Install ROS noetic
-wget -c https://raw.githubusercontent.com/qboticslabs/ros_install_noetic/master/ros_install_noetic.sh && chmod +x ./ros_install_noetic.sh && ./ros_install_noetic.sh
-
-# Source bashrc
-. ~/.bashrc
+wget -c https://raw.githubusercontent.com/qboticslabs/ros_install_noetic/master/ros_install_noetic.sh && chmod +x ./ros_install_noetic.sh && ./ros_install_noetic.sh && . ~/.bashrc
 
 # Install ROS plotjuggler
 sudo apt install ros-$ROS_DISTRO-plotjuggler-ros
+
+# Install pyenv
+sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
+libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
+
+curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash && pyenv install 3.10 && pyenv global 3.10 && pyenv shell 3.10
 
 # Install VS Code
 sudo apt-get install wget gpg
