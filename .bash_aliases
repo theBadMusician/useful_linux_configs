@@ -56,6 +56,7 @@ alias lsdu="ls | xargs du -sh"
 alias gource_viz="gource -a 0.01 -s 0.001 --max-files 0"
 alias unzip="tar -xvzf"
 alias tmuxattach="tmux attach"
+alias tr="trash"
 function loop_video() {
   mplayer -fs -loop 0 $1
 }
