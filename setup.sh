@@ -1,7 +1,12 @@
 #! /bin/bash
 
+# Download packages
+sudo apt update
+sudo apt install -y --upgrade azure-cli baobab ca-certificates net-tools cython3 gnome-tweaks dkms curl doxygen dpkg-dev dpkg firefox gnupg googletest hostname htop iputils-ping iputils-ping iputils-tracepath openconnect openssh-client openssh-server perl pulseaudio udev vim wget 
+# Optional: audacity
+
 # Install tmux and git
-sudo apt install tmux git
+sudo apt install -y --upgrade tmux git
 
 # Install TPM
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -22,6 +27,12 @@ tmux source ~/.tmux.conf
 
 # Install ROS noetic
 wget -c https://raw.githubusercontent.com/qboticslabs/ros_install_noetic/master/ros_install_noetic.sh && chmod +x ./ros_install_noetic.sh && ./ros_install_noetic.sh
+
+# Source bashrc
+. ~/.bashrc
+
+# Install ROS plotjuggler
+sudo apt install ros-$ROS_DISTRO-plotjuggler-ros
 
 # Install VS Code
 sudo apt-get install wget gpg
