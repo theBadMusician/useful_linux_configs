@@ -150,6 +150,6 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-export PYTHONPATH=$PYTHONPATH:~/.pyenv/versions/3.10.12/lib/python3.10/site-packag>
+export PYTHONPATH=$PYTHONPATH:~/.pyenv/versions/3.10.12/lib/python3.10/site-packages
 
 
