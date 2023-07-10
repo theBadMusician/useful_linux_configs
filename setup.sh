@@ -7,7 +7,7 @@
 
 # Download packages
 sudo apt update
-sudo apt install -y --upgrade azure-cli baobab ca-certificates net-tools cython3 gnome-tweaks dkms curl doxygen dpkg-dev dpkg firefox gnupg googletest hostname htop iputils-ping iputils-ping iputils-tracepath openconnect openssh-client openssh-server perl pulseaudio udev vim wget simplescreenrecorder trash-cli
+sudo apt install -y --upgrade azure-cli baobab ca-certificates net-tools cython3 gnome-tweaks dkms curl doxygen dpkg-dev dpkg firefox gnupg googletest hostname htop iputils-ping iputils-ping iputils-tracepath openconnect openssh-client openssh-server perl pulseaudio udev vim wget simplescreenrecorder trash-cli nmap 
 # Optional: audacity
 
 # Install tmux and git
