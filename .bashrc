@@ -135,7 +135,7 @@ source /opt/ros/noetic/setup.bash
 export ROS_IP=192.168.1.97
 export ROS_HOSTNAME=192.168.1.97
 
-if tmux ls 2>&1 | grep '/tmp/tmux-1000/default' -q; then tmux ; fi
+#if tmux ls 2>&1 | grep '/tmp/tmux-1000/default' -q; then tmux ; fi
 
 export PATH=$PATH:/usr/local/MATLAB/R2021b/bin/
 export LIB=lib/x86_64-linux-gnu
