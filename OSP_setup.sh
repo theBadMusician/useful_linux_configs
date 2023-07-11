@@ -24,16 +24,16 @@ git clone --recursive https://github.com/open-simulation-platform/libcosimpy
 cd libcosim && mkdir build && cd build
 
 $HOME/.pyenv/versions/3.10.12/bin/conan install .. --build=missing --settings build_type=Debug --settings compiler.libcxx=libstdc++11 -o proxyfmu=True
-cmake .. -DLIBCOSIM_USING_CONAN=TRUE -DLIBCOSIM_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Debug
-cmake --build .
+$HOME/.local/bin/cmake .. -DLIBCOSIM_USING_CONAN=TRUE -DLIBCOSIM_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Debug
+$HOME/.local/bin/cmake --build .
 sudo make install
 
 # libcosimc
 
 cd ../.. && cd libcosimc && mkdir build && cd build
 $HOME/.pyenv/versions/3.10.12/bin/conan install ..  -o libcosim:'proxyfmu=True' --build=missing --settings build_type=Debug --settings compiler.libcxx=libstdc++11
-cmake .. -DLIBCOSIMC_USING_CONAN=TRUE -DLIBCOSIM_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Debug
-cmake --build .
+$HOME/.local/bin/cmake .. -DLIBCOSIMC_USING_CONAN=TRUE -DLIBCOSIM_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Debug
+$HOME/.local/bin/cmake --build .
 sudo make install
 
 # libcosimpy
