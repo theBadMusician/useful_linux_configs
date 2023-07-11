@@ -132,15 +132,16 @@ fi
 # ROS sources
 source /opt/ros/noetic/setup.bash
 
-export ROS_IP=192.168.1.97
-export ROS_HOSTNAME=192.168.1.97
+export ROS_MASTER_URI=http://127.0.0.1:11311
+export ROS_IP=127.0.0.1
+export ROS_HOSTNAME=($ hostname)
 
 #if tmux ls 2>&1 | grep '/tmp/tmux-1000/default' -q; then tmux ; fi
 
-export PATH=$PATH:/usr/local/MATLAB/R2021b/bin/
+#export PATH=$PATH:/usr/local/MATLAB/R2021b/bin/
 export LIB=lib/x86_64-linux-gnu
 
-. ~/projects/vortex/vortex_ws/devel/setup.bash
+#. ~/Projects/vortex/vortex_ws/devel/setup.bash
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init --path)"
