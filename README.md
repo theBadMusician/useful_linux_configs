@@ -18,6 +18,31 @@ KERNEL=="ttyS[0-99]*",MODE="0666"
 ```
 ---
 
+## Add newer versions of packages
+In case a program requires pre-compiled system binaries, libraries, or packages which are not directly supported by your distro, but exist in newer distros, there is a way to add those.
+
+Add Ubuntu Jammy (22.04) source index to the machine's source list file:
+```
+echo deb http://cz.archive.ubuntu.com/ubuntu jammy main >> /etc/apt/sources.list
+```
+
+Update source index:
+```
+sudo apt update
+```
+
+Install required packages, e.g.:
+```
+sudo apt install libc6
+```
+
+After installing the packages/libraries, it is **IMPORTANT** to delete the previosly added to the source index file:
+```
+sed '$d' /etc/apt/sources.list
+```
+
+---
+
 ## Install multiple python versions on a Linux machine
 Installing multiple versions of Python on a Linux machine can be done through a variety of ways. Here, I'll describe how you can do this using the pyenv utility, which allows you to easily switch between different Python versions.
 
