@@ -43,5 +43,7 @@ $HOME/.pyenv/versions/3.10.12/bin/conan lock create conanfile.py -s build_type=D
 mv conan.lock conan-linux64.lock
 $HOME/.pyenv/versions/3.10.12/bin/python -m pip install ..
 
-# To build catkin workspace: pip uninstall em && pip install empy
-# To run python program: printf "export PYTHONPATH=$PYTHONPATH:~/.pyenv/versions/3.10.12/lib/python3.10/site-packages" >> ~/.bashrc && sudo pip install --target=/opt/ros/noetic/lib/python3/dist-packages rospkg
+# To be able to catkin build
+$HOME/.pyenv/versions/3.10.12/bin/python -m pip uninstall em && $HOME/.pyenv/versions/3.10.12/bin/python -m pip install empy
+# To run python programs
+printf "export PYTHONPATH=$PYTHONPATH:~/.pyenv/versions/3.10.12/lib/python3.10/site-packages" >> ~/.bashrc && sudo pip install --target=/opt/ros/noetic/lib/python3/dist-packages rospkg
