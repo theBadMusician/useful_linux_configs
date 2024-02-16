@@ -124,3 +124,11 @@ eval "$(pyenv init -)"
 This makes Python 3.8.5 the default Python for the current terminal session.
 
 Remember to replace `3.6.9` and `3.8.5` with the actual versions of Python that you want to use. If you're not sure which versions of Python are installed, you can list them with `pyenv versions`.
+
+
+## Add custom keyboard mapping and functionality using XKB
+IMPORTANT: Before doing anything with XKB, make sure to backup your current setup in `/usr/share/X11/xkb/`. In addition, have a way to be able to input commands in case you are locked out from using the keyboard because of a bad config - best way is to have a CD or USB boot drive from which you can load into an isolated linux environment and mount your drive; at which point you can fix the bad config.
+
+To add setup the arrowless keyboard layout from this repo all you need to do is delete `/usr/share/X11/xkb` directory and move the `xkb_arrowless_setup` folder to the same place (should be named `xkb`).
+
+To initialize the new setup you can either logout/restart, or use command `sudo udevadm trigger --subsystem-match=input --action=change`.
