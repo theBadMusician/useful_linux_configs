@@ -134,6 +134,9 @@ source /opt/ros/jazzy/setup.bash
 export PATH=$PATH:/home/beng/.local/bin
 eval "$(zoxide init bash --cmd cd)"
 
+# Enable screen extend for RDP   
+gsettings set org.gnome.desktop.remote-desktop.rdp screen-share-mode extend
+
 # Enable if needed
 #export PATH=$PATH:/usr/local/MATLAB/R2021b/bin/
 #export LIB=lib/x86_64-linux-gnu
