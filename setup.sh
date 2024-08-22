@@ -7,8 +7,8 @@
 
 # Install packages
 sudo apt update
-sudo apt install -y --upgrade azure-cli baobab ca-certificates net-tools cython3 gnome-tweaks dkms curl doxygen dpkg-dev dpkg firefox gnupg googletest hostname htop iputils-ping iputils-ping iputils-tracepath openconnect openssh-client openssh-server perl pulseaudio udev vim wget simplescreenrecorder trash-cli nmap 
-# Optional: audacity
+sudo apt install -y --upgrade  baobab ca-certificates net-tools cython3 curl doxygen dpkg-dev gnupg googletest hostname htop iputils-ping iputils-tracepath openssh-client openssh-server perl pulseaudio udev vim wget simplescreenrecorder nmap xclip
+# Optional: audacity gnome-tweaks
 
 # Install tmux and git
 sudo apt install -y --upgrade tmux git
@@ -30,18 +30,27 @@ cat ~/useful_linux_configs/.tmux.conf > ~/.tmux.conf
 # Source in tmux
 tmux source ~/.tmux.conf
 
-# Install ROS noetic
-wget -c https://raw.githubusercontent.com/qboticslabs/ros_install_noetic/master/ros_install_noetic.sh && chmod +x ./ros_install_noetic.sh && ./ros_install_noetic.sh && . ~/.bashrc
+# Install ROS2 Jazzy
+sudo apt update && sudo apt install locales
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+locale  # verify settings
+
+sudo apt install software-properties-common
+sudo add-apt-repository universe
+sudo apt update && sudo apt install curl -y
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+
+sudo apt update && sudo apt install ros-dev-tools
+
+sudo apt update && sudo apt upgrade
+sudo apt install ros-jazzy-desktop
+source /opt/ros/jazzy/setup.bash
 
 # Install ROS plotjuggler
 sudo apt install -y --upgrade ros-$ROS_DISTRO-plotjuggler-ros
-
-# Install pyenv
-sudo apt-get install -y --upgrade build-essential libssl-dev zlib1g-dev libbz2-dev \
-libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
-
-curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash && pyenv install 3.10 && pyenv global 3.10 && pyenv shell 3.10
 
 # Install VS Code
 sudo apt-get install -y --upgrade wget gpg
@@ -53,20 +62,19 @@ sudo apt install apt-transport-https
 sudo apt update
 sudo apt install code # or code-insiders
 
-# Install Docker
-sudo apt-get update
-sudo apt-get install -y --upgrade ca-certificates curl gnupg
-sudo install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
-
-# Same line
-echo \
-  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-sudo apt-get update
-sudo apt-get install -y --upgrade docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-# Verify that docker is installed
-sudo docker run hello-world
+## Install Docker
+#sudo apt-get update
+#sudo apt-get install -y --upgrade ca-certificates curl gnupg
+#sudo install -m 0755 -d /etc/apt/keyrings
+#curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+#sudo chmod a+r /etc/apt/keyrings/docker.gpg
+#
+#echo \
+#  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+#  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+#  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+#
+#sudo apt-get update
+#sudo apt-get install -y --upgrade docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+## Verify that docker is installed
+#sudo docker run hello-world
