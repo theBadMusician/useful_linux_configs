@@ -62,6 +62,10 @@ sudo apt install apt-transport-https
 sudo apt update
 sudo apt install code # or code-insiders
 
+# Install Zoxide
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+sudo apt install fzf
+
 ## Install Docker
 #sudo apt-get update
 #sudo apt-get install -y --upgrade ca-certificates curl gnupg
