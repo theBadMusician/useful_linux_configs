@@ -126,31 +126,15 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# WLAN IPA check
-#wlan_ip(){ ifconfig wlp0s20f3  | awk '/inet / {print \$2}'; }
 
-# ROS sources
-source /opt/ros/noetic/setup.bash
+# ROS2 Jazzy
+source /opt/ros/jazzy/setup.bash
 
-export ROS_MASTER_URI=http://127.0.0.1:11311
-export ROS_IP=127.0.0.1
-export ROS_HOSTNAME=($ hostname)
+# Zoxide
+export PATH=$PATH:/home/beng/.local/bin
+eval "$(zoxide init bash --cmd cd)"
 
-#if tmux ls 2>&1 | grep '/tmp/tmux-1000/default' -q; then tmux ; fi
-
+# Enable if needed
 #export PATH=$PATH:/usr/local/MATLAB/R2021b/bin/
-export LIB=lib/x86_64-linux-gnu
-
-#. ~/Projects/vortex/vortex_ws/devel/setup.bash
-
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv virtualenv-init -)"
-
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-export PYTHONPATH=$PYTHONPATH:~/.pyenv/versions/3.10.12/lib/python3.10/site-packages
-
-
+#export LIB=lib/x86_64-linux-gnu
+#export PYTHONPATH=$PYTHONPATH:~/.pyenv/versions/3.10.12/lib/python3.10/site-packages
