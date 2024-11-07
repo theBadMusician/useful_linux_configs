@@ -47,3 +47,7 @@ alias tmuxattach="tmux attach"
 function loop_video() {
   mplayer -fs -loop 0 $1
 }
+alias venv_activate="source ./.venv/bin/activate"
+
+# ========[ Quick Setups ]======== #
+alias mon_setup="xrandr --output HDMI-0 --auto  --mode 1920x1080 --scale 1.3333x1.333 --pos 0x407 && xrandr --output DP-0 --auto --pos 2560x407 && xrandr --output DP-2 --auto --pos 5120x1024 && xrandr --output DP-4 --auto --pos 5120x0"
