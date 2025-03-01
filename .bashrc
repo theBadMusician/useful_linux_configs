@@ -141,3 +141,13 @@ gsettings set org.gnome.desktop.remote-desktop.rdp screen-share-mode extend
 #export PATH=$PATH:/usr/local/MATLAB/R2021b/bin/
 #export LIB=lib/x86_64-linux-gnu
 #export PYTHONPATH=$PYTHONPATH:~/.pyenv/versions/3.10.12/lib/python3.10/site-packages
+
+# Save command history from tmux
+# Avoid duplicates
+HISTCONTROL=ignoredups:erasedups # Ubuntu default is ignoreboth
+# When the shell exits, append to the history file instead of overwriting it
+shopt -s histappend  # In Ubuntu this is already set by default
+# After each command, append to the history file and reread it
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+
+

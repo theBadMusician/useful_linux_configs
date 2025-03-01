@@ -66,6 +66,9 @@ sudo apt install code # or code-insiders
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 sudo apt install fzf
 
+# Install neovim
+sudo apt install neovim ripgrep fd-find # For Ubuntu/Debian
+
 ## Install Docker
 #sudo apt-get update
 #sudo apt-get install -y --upgrade ca-certificates curl gnupg
