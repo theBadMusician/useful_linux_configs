@@ -24,6 +24,7 @@ require('packer').startup(function(use)
   use 'preservim/nerdtree' -- File Tree
   use 'mbbill/undotree' -- Undo Tree
   use 'Mofiqul/vscode.nvim' -- VSCode Theme
+  use {"adisen99/codeschool.nvim", requires = {"rktjmp/lush.nvim"}}
   use {'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons'}
   use {
     'numToStr/Comment.nvim',
@@ -139,7 +140,7 @@ require'nvim-treesitter.configs'.setup {
   auto_install = false,
 
   -- List of parsers to ignore installing (or "all")
-  ignore_install = { "javascript" },
+  -- ignore_install = { "javascript" },
 
   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
   -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
@@ -229,7 +230,7 @@ require("bufferline").setup{
     right_mouse_command = "bdelete! %d",
     
     -- Separator style: 'slant' | 'thick' | 'thin' | { 'any', 'any' }
-    separator_style = "thin",
+    separator_style = "thick",
     
     -- Add indicators for modified files, etc.
     -- diagnostics = "nvim_lsp",
@@ -240,14 +241,14 @@ require("bufferline").setup{
     -- Use custom offset for the start of the bufferline
     offsets = {
       {
-        filetype = "NERDTree",
+        filetype = "nerdtree",
         text = "File Explorer",
         highlight = "Directory",
         text_align = "center"
       }
     },
     
-    -- Show the buffer name in the tab
+    -- Show the buffed name in the tab
     show_buffer_icons = true,
     show_buffer_close_icons = true,
     show_close_icon = true,
@@ -258,6 +259,40 @@ require("bufferline").setup{
     
     -- Always show tabs
     always_show_bufferline = true,
+    
+    -- Increase the contrast with highlight groups
+    highlights = {
+      separator = {
+        fg = "#073642",
+        bg = "#002b36",
+      },
+      separator_selected = {
+        fg = "#073642",
+      },
+      background = {
+        fg = "#657b83",
+        bg = "#002b36"
+      },
+      buffer_selected = {
+        fg = "#fdf6e3",
+        bold = true,
+      },
+      fill = {
+        bg = "#073642"
+      }
+    },
+    
+    -- Add more spacing between tabs
+    tab_size = 18,
+    
+    -- Make modified indicator more visible
+    modified_icon = "●",
+    
+    -- Add indicator for active buffer
+    indicator = {
+      icon = '▎',
+      style = 'icon',
+    },
   }
 }
 
@@ -323,6 +358,70 @@ require('Comment').setup({
     ---Function to call after (un)comment
     post_hook = nil,
 })
+
+-- Colorscheme config
+vim.o.background = "dark" -- or "light" for light mode
+
+-- Load and setup function to choose plugin and language highlights
+require('lush')(require('codeschool').setup({
+  plugins = {
+    "buftabline",
+    "coc",
+    "cmp", -- nvim-cmp
+    "fzf",
+    "gitgutter",
+    "gitsigns",
+    "lsp",
+    "lspsaga",
+    "nerdtree",
+    "netrw",
+    "nvimtree",
+    "neogit",
+    "packer",
+    "signify",
+    "startify",
+    "syntastic",
+    "telescope",
+    "treesitter"
+  },
+  langs = {
+    "c",
+    "clojure",
+    "coffeescript",
+    "csharp",
+    "css",
+    "elixir",
+    "golang",
+    "haskell",
+    "html",
+    "java",
+    "js",
+    "json",
+    "jsx",
+    "lua",
+    "markdown",
+    "moonscript",
+    "objc",
+    "ocaml",
+    "purescript",
+    "python",
+    "ruby",
+    "rust",
+    "scala",
+    "typescript",
+    "viml",
+    "xml"
+  }
+}))
+vim.g.codeschool_contrast_dark = "hard" -- Hard, medium, or soft
+
+-- Make background darker
+vim.cmd([[
+  hi Normal guibg=#0a0a0a
+  hi SignColumn guibg=#0a0a0a
+  hi NormalFloat guibg=#0a0a0a
+]])
+
 
 -- vscode.nvim config
 -- require("bufferline").setup({
