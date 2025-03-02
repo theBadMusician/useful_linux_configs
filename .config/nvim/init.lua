@@ -34,6 +34,7 @@ require('packer').startup(function(use)
   }
 end)
 
+
 -- Basic settings
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -48,6 +49,7 @@ vim.opt.updatetime = 300
 vim.opt.mouse = 'a'
 vim.opt.encoding = 'UTF-8'
 
+
 -- Key mappings
 vim.g.mapleader = ' ' -- Space as leader key
 vim.api.nvim_set_keymap('n', '+', '$', { noremap = true, silent = true })
@@ -58,8 +60,10 @@ vim.api.nvim_set_keymap('n', '<C-k>', '20k', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-j>', '20j', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-k>', '20k', { noremap = true, silent = true })
 
+
 -- File explorer
 vim.keymap.set('n', '<leader>e', ':NERDTreeToggle<CR>')
+
 
 -- Define command to save and source using single motion
 vim.api.nvim_create_user_command('SaveAndSource', function()
@@ -170,7 +174,8 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
--- undotree setup
+
+-- Undotree Configuration
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 
@@ -221,98 +226,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
--- Bufferline setup
-vim.opt.termguicolors = true
-require("bufferline").setup{
-  options = {
-    -- Enable close button
-    close_command = "bdelete! %d",
-    right_mouse_command = "bdelete! %d",
-    
-    -- Separator style: 'slant' | 'thick' | 'thin' | { 'any', 'any' }
-    separator_style = "thick",
-    
-    -- Add indicators for modified files, etc.
-    -- diagnostics = "nvim_lsp",
-    
-    -- Show buffer numbers
-    numbers = "ordinal",
-    
-    -- Use custom offset for the start of the bufferline
-    offsets = {
-      {
-        filetype = "nerdtree",
-        text = "File Explorer",
-        highlight = "Directory",
-        text_align = "center"
-      }
-    },
-    
-    -- Show the buffed name in the tab
-    show_buffer_icons = true,
-    show_buffer_close_icons = true,
-    show_close_icon = true,
-    show_tab_indicators = true,
-    
-    -- Enforce regular buffer switching
-    enforce_regular_tabs = false,
-    
-    -- Always show tabs
-    always_show_bufferline = true,
-    
-    -- Increase the contrast with highlight groups
-    highlights = {
-      separator = {
-        fg = "#073642",
-        bg = "#002b36",
-      },
-      separator_selected = {
-        fg = "#073642",
-      },
-      background = {
-        fg = "#657b83",
-        bg = "#002b36"
-      },
-      buffer_selected = {
-        fg = "#fdf6e3",
-        bold = true,
-      },
-      fill = {
-        bg = "#073642"
-      }
-    },
-    
-    -- Add more spacing between tabs
-    tab_size = 18,
-    
-    -- Make modified indicator more visible
-    modified_icon = "●",
-    
-    -- Add indicator for active buffer
-    indicator = {
-      icon = '▎',
-      style = 'icon',
-    },
-  }
-}
-
-vim.api.nvim_set_keymap('n', '<Tab>', ':BufferLineCycleNext<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<S-Tab>', ':BufferLineCyclePrev<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>x', ':bdelete<CR>', { noremap = true, silent = true })
--- Move buffer tabs
-vim.api.nvim_set_keymap('n', '<leader>bn', ':BufferLineMoveNext<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>bp', ':BufferLineMovePrev<CR>', { noremap = true, silent = true })
--- Go to buffer by number
-vim.api.nvim_set_keymap('n', '<leader>1', ':BufferLineGoToBuffer 1<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>2', ':BufferLineGoToBuffer 2<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>3', ':BufferLineGoToBuffer 3<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>4', ':BufferLineGoToBuffer 4<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>5', ':BufferLineGoToBuffer 5<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>6', ':BufferLineGoToBuffer 6<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>7', ':BufferLineGoToBuffer 7<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>8', ':BufferLineGoToBuffer 8<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>9', ':BufferLineGoToBuffer 9<CR>', { noremap = true, silent = true })
-
 
 -- Comment.nvim setup
 require('Comment').setup({
@@ -358,6 +271,7 @@ require('Comment').setup({
     ---Function to call after (un)comment
     post_hook = nil,
 })
+
 
 -- Colorscheme config
 vim.o.background = "dark" -- or "light" for light mode
@@ -423,66 +337,100 @@ vim.cmd([[
 ]])
 
 
--- vscode.nvim config
--- require("bufferline").setup({
---     options = {
---         buffer_close_icon = "",
---         close_command = "bdelete %d",
---         close_icon = "",
---         indicator = {
---           style = "icon",
---           icon = " ",
---         },
---         left_trunc_marker = "",
---         modified_icon = "●",
---         offsets = { { filetype = "NvimTree", text = "EXPLORER", text_align = "center" } },
---         right_mouse_command = "bdelete! %d",
---         right_trunc_marker = "",
---         show_close_icon = false,
---         show_tab_indicators = true,
---     },
---     highlights = {
---         fill = {
---             fg = { attribute = "fg", highlight = "Normal" },
---             bg = { attribute = "bg", highlight = "StatusLineNC" },
---         },
---         background = {
---             fg = { attribute = "fg", highlight = "Normal" },
---             bg = { attribute = "bg", highlight = "StatusLine" },
---         },
---         buffer_visible = {
---             fg = { attribute = "fg", highlight = "Normal" },
---             bg = { attribute = "bg", highlight = "Normal" },
---         },
---         buffer_selected = {
---             fg = { attribute = "fg", highlight = "Normal" },
---             bg = { attribute = "bg", highlight = "Normal" },
---         },
---         separator = {
---             fg = { attribute = "bg", highlight = "Normal" },
---             bg = { attribute = "bg", highlight = "StatusLine" },
---         },
---         separator_selected = {
---             fg = { attribute = "fg", highlight = "Special" },
---             bg = { attribute = "bg", highlight = "Normal" },
---         },
---         separator_visible = {
---             fg = { attribute = "fg", highlight = "Normal" },
---             bg = { attribute = "bg", highlight = "StatusLineNC" },
---         },
---         close_button = {
---             fg = { attribute = "fg", highlight = "Normal" },
---             bg = { attribute = "bg", highlight = "StatusLine" },
---         },
---         close_button_selected = {
---             fg = { attribute = "fg", highlight = "Normal" },
---             bg = { attribute = "bg", highlight = "Normal" },
---         },
---         close_button_visible = {
---             fg = { attribute = "fg", highlight = "Normal" },
---             bg = { attribute = "bg", highlight = "Normal" },
---         },
---     },
--- })
+-- Bufferline Colorscheme Setup
+-- This function will be called after the colorscheme has been loaded
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    -- Give it a slight delay to ensure it runs after colorscheme is fully loaded
+    vim.defer_fn(function()
+      -- Direct highlight overrides that won't be affected by the colorscheme
+      vim.api.nvim_set_hl(0, "BufferLineFill", { bg = "#073642" })
+      vim.api.nvim_set_hl(0, "BufferLineBackground", { fg = "#657b83", bg = "#002b36" })
+      vim.api.nvim_set_hl(0, "BufferLineBufferSelected", { fg = "#ffffff", bg = "#1a5fb4", bold = true, italic = true })
+      vim.api.nvim_set_hl(0, "BufferLineBufferVisible", { fg = "#839496", bg = "#073642" })
+      vim.api.nvim_set_hl(0, "BufferLineSeparator", { fg = "#073642", bg = "#002b36" })
+      vim.api.nvim_set_hl(0, "BufferLineSeparatorSelected", { fg = "#073642", bg = "#1a5fb4" })
+      vim.api.nvim_set_hl(0, "BufferLineSeparatorVisible", { fg = "#073642", bg = "#073642" })
+      vim.api.nvim_set_hl(0, "BufferLineIndicatorSelected", { fg = "#ff79c6", bg = "#1a5fb4" })
+      vim.api.nvim_set_hl(0, "BufferLineModified", { fg = "#b58900" })
+      vim.api.nvim_set_hl(0, "BufferLineModifiedSelected", { fg = "#ffff00", bg = "#1a5fb4", bold = true })
+      vim.api.nvim_set_hl(0, "BufferLineModifiedVisible", { fg = "#b58900", bg = "#073642" })
+      vim.api.nvim_set_hl(0, "BufferLineDuplicate", { fg = "#586e75", bg = "#002b36", italic = true })
+      vim.api.nvim_set_hl(0, "BufferLineDuplicateSelected", { fg = "#ffffff", bg = "#1a5fb4", italic = true })
+      vim.api.nvim_set_hl(0, "BufferLineTabSelected", { fg = "#ffffff", bg = "#1a5fb4", bold = true })
+      
+      -- Print confirmation message
+      vim.notify("Bufferline highlights have been applied!", vim.log.levels.INFO)
+    end, 100) -- 100ms delay
+  end
+})
+
+-- Bufferline setup - Make this section for configuration only, not colors
+vim.opt.termguicolors = true
+require("bufferline").setup{
+  options = {
+    -- Enable close button
+    close_command = "bdelete! %d",
+    right_mouse_command = "bdelete! %d",
+    
+    -- Separator style: 'slant' | 'thick' | 'thin' | { 'any', 'any' }
+    separator_style = "thick",
+    
+    -- Show buffer numbers
+    numbers = "ordinal",
+    
+    -- Use custom offset for the start of the bufferline
+    offsets = {
+      {
+        filetype = "nerdtree",
+        text = "File Explorer",
+        highlight = "Directory",
+        text_align = "center"
+      }
+    },
+    
+    -- Show the buffer name in the tab
+    show_buffer_icons = true,
+    show_buffer_close_icons = true,
+    show_close_icon = true,
+    show_tab_indicators = true,
+    
+    -- Enforce regular buffer switching
+    enforce_regular_tabs = false,
+    
+    -- Always show tabs
+    always_show_bufferline = true,
+    
+    -- Add more spacing between tabs
+    tab_size = 18,
+    
+    -- Make modified indicator more visible
+    modified_icon = "●",
+    
+    -- Add indicator for active buffer
+    indicator = {
+      icon = '▎',
+      style = 'icon',
+    },
+  }
+}
+
+-- Existing keymaps
+vim.api.nvim_set_keymap('n', '<Tab>', ':BufferLineCycleNext<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<S-Tab>', ':BufferLineCyclePrev<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>x', ':bdelete<CR>', { noremap = true, silent = true })
+-- Move buffer tabs
+vim.api.nvim_set_keymap('n', '<leader>bn', ':BufferLineMoveNext<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>bp', ':BufferLineMovePrev<CR>', { noremap = true, silent = true })
+-- Go to buffer by number
+vim.api.nvim_set_keymap('n', '<leader>1', ':BufferLineGoToBuffer 1<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>2', ':BufferLineGoToBuffer 2<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>3', ':BufferLineGoToBuffer 3<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>4', ':BufferLineGoToBuffer 4<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>5', ':BufferLineGoToBuffer 5<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>6', ':BufferLineGoToBuffer 6<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>7', ':BufferLineGoToBuffer 7<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>8', ':BufferLineGoToBuffer 8<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>9', ':BufferLineGoToBuffer 9<CR>', { noremap = true, silent = true })
 
 -- LSP setup would go here
