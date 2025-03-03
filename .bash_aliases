@@ -54,6 +54,10 @@ alias card_info="ls -l /dev/dri/by-path/ && sudo dmesg | grep -i nvidia && ls -l
 # ========[ Quick Setups ]======== #
 alias mon_setup="xrandr --output HDMI-0 --auto  --mode 1920x1080 --scale 1.3333x1.333 --pos 0x407 && xrandr --output DP-0 --auto --pos 2560x407 && xrandr --output DP-2 --auto --pos 5120x1024 && xrandr --output DP-4 --auto --pos 5120x0"
 
+# ========[ Other ]======== #
+# Create a webcam from rtsp stream
+alias rtsp_webcam="sudo modprobe -r v4l2loopback && sudo modprobe v4l2loopback exclusive_caps=1 card_label='RTSP Camera' && sleep 2 && sudo ffmpeg -fflags nobuffer -flags low_delay -strict experimental -rtsp_transport tcp -hwaccel cuda  -i rtsp://admin:395477@10.0.0.16/live/profile.1 -fps_mode passthrough -copyts -vf "format=yuv420p,setrange=tv"  -f v4l2 /dev/video0"
+
 # ========[ Functions ]======== #
 # Print conditional dir tree for numbered folders
 tree_numbered() {
