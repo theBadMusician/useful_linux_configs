@@ -58,6 +58,7 @@ vim.opt.encoding = 'UTF-8'
 -- Key mappings
 vim.g.mapleader = ' ' -- Space as leader key
 vim.api.nvim_set_keymap('n', '+', '$', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '+', '$', { noremap = true, silent = true })
 
 -- Jump multiple lines using <C-j> and <C-k> (Ctrl+j and Ctrl+k)
 vim.api.nvim_set_keymap('n', '<C-j>', '20j', { noremap = true, silent = true })
