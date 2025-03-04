@@ -150,4 +150,5 @@ shopt -s histappend  # In Ubuntu this is already set by default
 # After each command, append to the history file and reread it
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
-
+# Attach to a tmux session if there is one, else open a new session 
+if [[ -z "$TMUX" ]]; then tmux attach || tmux new-session; fi
