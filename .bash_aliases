@@ -60,23 +60,20 @@ alias rtsp_webcam="sudo modprobe -r v4l2loopback && sudo modprobe v4l2loopback e
 
 # ========[ Functions ]======== #
 # Print conditional dir tree for numbered folders
-tree_numbered() {
+ntree() {
     local dir="${1:-.}"      # Default to current directory if none provided
     local prefix="${2:-""}"  # Prefix for tree formatting (used in recursion)
-
-    # Find subdirectories that start with a number, excluding .git
-    local numbered_subdirs=($(find "$dir" -maxdepth 1 -mindepth 1 -type d -regex '.*/[0-9]+[^/]*' -not -path '*/.git*' | sort))
-
+    
     # If at top level, print the root directory
     if [[ "$prefix" == "" ]]; then
         echo "."
     fi
-
+    
     # Collect all items (files + folders) inside the current directory
-    local all_items=($(find "$dir" -maxdepth 1 -mindepth 1 | sort))
-
-    # Print all items inside the directory
+    local all_items=()
+    mapfile -t all_items < <(find "$dir" -maxdepth 1 -mindepth 1 | sort)
     local count=${#all_items[@]}
+    local i=0
     for ((i = 0; i < count; i++)); do
         local item="${all_items[$i]}"
         local connector="├──"
@@ -86,12 +83,17 @@ tree_numbered() {
             connector="└──"
             new_prefix="${prefix}    "
         fi
-
+        
         echo "${prefix}${connector} ${item##*/}"
-
+        
         # If this is a numbered directory, go inside it recursively
         if [[ -d "$item" && "$item" =~ /[0-9]+[^/]*$ ]]; then
-            tree_numbered "$item" "$new_prefix"
+            # Call recursively with proper parameters
+            ntree "$item" "$new_prefix"
+            # This will be printed after returning from the recursive call
         fi
     done
+    
+    # Explicitly return to caller
+    return 0
 }
