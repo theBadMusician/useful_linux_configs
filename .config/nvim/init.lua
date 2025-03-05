@@ -82,6 +82,10 @@ vim.api.nvim_set_keymap('n', '<C-h>', '3b', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-l>', '3w', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-h>', '3b', { noremap = true, silent = true })
 
+-- Map Ctrl+S to exit insert mode and save file
+vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
 
 -- File explorer
 vim.keymap.set('n', '<leader>e', ':NERDTreeToggle<CR>')
@@ -99,7 +103,6 @@ vim.keymap.set('n', '<leader>ss', ':SaveAndSource<CR>', { noremap = true, silent
 -- Telescope mappings
 vim.api.nvim_set_keymap('n', '<leader>ff', ':lua require"telescope.builtin".find_files({ hidden = true })<CR>',
   { noremap = true, silent = true })
-
 vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers)
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep)
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)
@@ -182,7 +185,7 @@ require 'nvim-treesitter.configs'.setup {
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 
--- NERDTree config
+-- NERDTree configurations
 -- Open NERDTree automatically when vim starts up with no files specified
 vim.api.nvim_create_autocmd("StdinReadPre", {
   callback = function()
