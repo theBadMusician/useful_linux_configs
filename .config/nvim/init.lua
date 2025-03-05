@@ -7,12 +7,12 @@ end
 
 -- Plugin definitions
 require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'                                              -- Package manager
-  use 'nvim-treesitter/nvim-treesitter'                                     -- Better syntax highlighting
+  use 'wbthomason/packer.nvim'                                     -- Package manager
+  use 'nvim-treesitter/nvim-treesitter'                            -- Better syntax highlighting
   use {
-    'nvim-telescope/telescope.nvim',                                        -- Fuzzy finder
+    'nvim-telescope/telescope.nvim',                               -- Fuzzy finder
     requires = { { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }          -- Optional for better performance
+      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' } -- Optional for better performance
     }
   }
   use 'kyazdani42/nvim-tree.lua' -- File explorer
@@ -33,6 +33,9 @@ require('packer').startup(function(use)
       require('Comment').setup()
     end
   }
+  -- Copilot for inline code suggestions
+  use 'github/copilot.vim'
+
   -- use {'pechorin/any-jump.vim'}
   -- LSP related packages
   use 'neovim/nvim-lspconfig'             -- LSP configuration
@@ -96,6 +99,7 @@ vim.keymap.set('n', '<leader>ss', ':SaveAndSource<CR>', { noremap = true, silent
 -- Telescope mappings
 vim.api.nvim_set_keymap('n', '<leader>ff', ':lua require"telescope.builtin".find_files({ hidden = true })<CR>',
   { noremap = true, silent = true })
+
 vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers)
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep)
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)
@@ -103,7 +107,7 @@ vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)
 -- Basic telescope setup
 require('telescope').setup {
   defaults = {
-    file_ignore_patterns = { "node_modules", ".git" },
+    file_ignore_patterns = { "node_modules", ".git", ".cache", ".idea", ".vscode", "__pycache__", ".venv", "miniconda3" },
     mappings = {
       i = {
         ["<C-j>"] = "move_selection_next",
@@ -158,7 +162,7 @@ require 'nvim-treesitter.configs'.setup {
     -- disable = { "c", "rust" },
     -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
     disable = function(lang, buf)
-      local max_filesize = 100 * 1024   -- 100 KB
+      local max_filesize = 100 * 1024 -- 100 KB
       local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
       if ok and stats and stats.size > max_filesize then
         return true
@@ -199,7 +203,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
 vim.g.NERDTreeShowHidden = 1
 
 -- Ignore certain files and directories
-vim.g.NERDTreeIgnore = { "\\.git$", "node_modules$", "\\.DS_Store$" }
+vim.g.NERDTreeIgnore = { "\\.git$", "node_modules$", "\\.DS_Store$", "__pycache__$", "\\.venv$", "miniconda3$", "\\.git$",
+  "\\.cache$", "\\.idea$", "\\.vscode$" }
 
 -- Set width of NERDTree window
 vim.g.NERDTreeWinSize = 30
@@ -214,17 +219,29 @@ vim.g.NERDTreeDirArrows = 1
 -- Keymapping suggestion
 vim.keymap.set('n', '<C-n>', ':NERDTreeToggle<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>nf', ':NERDTreeFind<CR>', { noremap = true, silent = true })
--- Create an autocmd to ensure the mappings work in NERDTree specifically
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "nerdtree",
-  callback = function()
-    local opts = { noremap = true, silent = true }
-    -- 0 refers to the current buffer
-    vim.api.nvim_buf_set_keymap(0, 'n', '<C-j>', '20j', opts)
-    vim.api.nvim_buf_set_keymap(0, 'n', '<C-k>', '20k', opts)
-  end
-})
 
+
+function _G.telescope_find_from_current_file()
+  -- Get the directory of the current file
+  local current_file = vim.fn.expand("%:p")
+  local current_dir
+
+  if current_file and current_file ~= "" then
+    -- Get the directory containing the current file
+    current_dir = vim.fn.fnamemodify(current_file, ":h")
+
+    -- Use Telescope to find files from this directory
+    require('telescope.builtin').find_files({
+      cwd = current_dir,
+    })
+  else
+    -- Fallback to the default working directory if no file is open
+    require('telescope.builtin').find_files()
+  end
+end
+
+vim.api.nvim_set_keymap('n', '<leader>tf', ':lua telescope_find_from_current_file()<CR>',
+  { noremap = true, silent = true })
 
 -- Comment.nvim setup
 require('Comment').setup({
@@ -415,8 +432,8 @@ require("bufferline").setup {
 }
 
 -- Existing keymaps
-vim.api.nvim_set_keymap('n', '<Tab>', ':BufferLineCycleNext<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<S-Tab>', ':BufferLineCyclePrev<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<Tab>', ':BufferLineCycleNext<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<S-Tab>', ':BufferLineCyclePrev<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>x', ':bdelete<CR>', { noremap = true, silent = true })
 -- Move buffer tabs
 vim.api.nvim_set_keymap('n', '<leader>bn', ':BufferLineMoveNext<CR>', { noremap = true, silent = true })
@@ -616,14 +633,14 @@ cmp.setup({
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ['<Tab>'] = cmp.mapping(function(fallback)
+    ['<C-j>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       else
         fallback()
       end
     end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
+    ['<C-k>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       else
