@@ -104,6 +104,9 @@ vim.api.nvim_set_keymap('n', '<C-M-Z>', '<C-r>', { noremap = true, silent = true
 vim.api.nvim_set_keymap('i', '<C-M-Z>', '<Esc><C-r>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-M-Z>', '<Esc><C-r>', { noremap = true, silent = true })
 
+-- Map Ctrl+e to switch between windows (Ctrl+w w alternative)
+vim.api.nvim_set_keymap('n', '<C-e>', '<C-w>w', { noremap = true, silent = true })
+
 -- File explorer
 vim.keymap.set('n', '<leader>e', ':NERDTreeToggle<CR>')
 
