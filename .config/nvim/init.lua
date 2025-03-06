@@ -89,6 +89,21 @@ vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = 
 vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
 
+-- Map Ctrl+A to select entire file content (like many modern editors)
+vim.api.nvim_set_keymap('n', '<C-q>', 'ggVG', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-q>', '<Esc>ggVG', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-q>', '<Esc>ggVG', { noremap = true, silent = true })
+
+-- Map Ctrl+Z to undo (like many modern editors)
+vim.api.nvim_set_keymap('n', '<C-z>', 'u', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-z>', '<Esc>u', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-z>', '<Esc>u', { noremap = true, silent = true })
+
+-- Map Ctrl+Alt+Z to redo 
+vim.api.nvim_set_keymap('n', '<C-M-Z>', '<C-r>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-M-Z>', '<Esc><C-r>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-M-Z>', '<Esc><C-r>', { noremap = true, silent = true })
+
 -- File explorer
 vim.keymap.set('n', '<leader>e', ':NERDTreeToggle<CR>')
 
