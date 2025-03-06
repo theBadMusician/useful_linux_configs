@@ -64,6 +64,8 @@ vim.opt.scrolloff = 8
 vim.opt.updatetime = 300
 vim.opt.mouse = 'a'
 vim.opt.encoding = 'UTF-8'
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 
 -- Key mappings
@@ -223,6 +225,36 @@ vim.g.NERDTreeDirArrows = 1
 vim.keymap.set('n', '<C-n>', ':NERDTreeToggle<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>nf', ':NERDTreeFind<CR>', { noremap = true, silent = true })
 
+
+-- Telescope integration with NERDTree
+function _G.telescope_find_from_nerdtree_root()
+  -- Try to get NERDTree root directory
+  local search_dir
+
+  -- Check if NERDTree is available and loaded
+  if vim.g.NERDTree ~= nil and vim.fn.exists("g:NERDTree.ForCurrentTab") == 1 then
+    -- Get the NERDTree root path
+    search_dir = vim.fn.eval("g:NERDTree.ForCurrentTab().getRoot().path.str()")
+  else
+    -- Fallback options if NERDTree root isn't available
+    local current_file = vim.fn.expand("%:p")
+    if current_file and current_file ~= "" then
+      -- Get the directory containing the current file as fallback
+      search_dir = vim.fn.fnamemodify(current_file, ":h")
+    else
+      -- Use current working directory as final fallback
+      search_dir = vim.fn.getcwd()
+    end
+  end
+
+  -- Use Telescope to find files from the determined directory
+  require('telescope.builtin').find_files({
+    cwd = search_dir,
+  })
+end
+-- Set up the key mapping
+vim.api.nvim_set_keymap('n', '<leader>fs', ':lua telescope_find_from_nerdtree_root()<CR>',
+  { noremap = true, silent = true })
 
 function _G.telescope_find_from_current_file()
   -- Get the directory of the current file
