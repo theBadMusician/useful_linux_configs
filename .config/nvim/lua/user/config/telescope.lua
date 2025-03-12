@@ -1,4 +1,4 @@
--- ~/.config/nvim/lua/config/telescope.lua
+-- ~/.config/nvim/lua/user/config/telescope.lua
 -- Telescope configuration
 
 -- Telescope mappings
@@ -61,6 +61,61 @@ vim.api.nvim_set_keymap('n', '<leader>fs', ':lua telescope_find_from_nerdtree_ro
 vim.api.nvim_set_keymap('n', '<leader>tf', ':lua telescope_find_from_current_file()<CR>',
   { noremap = true, silent = true })
 
+
+-- Function to live grep from NERDTree root
+function _G.telescope_grep_from_nerdtree_root()
+  -- Try to get NERDTree root directory
+  local search_dir
+
+  -- Check if NERDTree is available and loaded
+  if vim.g.NERDTree ~= nil and vim.fn.exists("g:NERDTree.ForCurrentTab") == 1 then
+    -- Get the NERDTree root path
+    search_dir = vim.fn.eval("g:NERDTree.ForCurrentTab().getRoot().path.str()")
+  else
+    -- Fallback options if NERDTree root isn't available
+    local current_file = vim.fn.expand("%:p")
+    if current_file and current_file ~= "" then
+      -- Get the directory containing the current file as fallback
+      search_dir = vim.fn.fnamemodify(current_file, ":h")
+    else
+      -- Use current working directory as final fallback
+      search_dir = vim.fn.getcwd()
+    end
+  end
+
+  -- Use Telescope to live grep from the determined directory
+  require('telescope.builtin').live_grep({
+    cwd = search_dir,
+  })
+end
+
+-- Function to live grep from current file's directory
+function _G.telescope_grep_from_current_file()
+  -- Get the directory of the current file
+  local current_file = vim.fn.expand("%:p")
+  local current_dir
+
+  if current_file and current_file ~= "" then
+    -- Get the directory containing the current file
+    current_dir = vim.fn.fnamemodify(current_file, ":h")
+
+    -- Use Telescope to live grep from this directory
+    require('telescope.builtin').live_grep({
+      cwd = current_dir,
+    })
+  else
+    -- Fallback to the default working directory if no file is open
+    require('telescope.builtin').live_grep()
+  end
+end
+
+-- Key mappings for the new functions
+vim.api.nvim_set_keymap('n', '<leader>gs', ':lua telescope_grep_from_nerdtree_root()<CR>',
+  { noremap = true, silent = true, desc = "Grep from NERDTree root" })
+vim.api.nvim_set_keymap('n', '<leader>tg', ':lua telescope_grep_from_current_file()<CR>',
+  { noremap = true, silent = true, desc = "Grep from current file directory" })
+
+
 -- Basic telescope setup
 require('telescope').setup {
   defaults = {
@@ -89,3 +144,4 @@ require('telescope').setup {
 
 -- Load the fzf extension after setup
 require('telescope').load_extension('fzf')
+
