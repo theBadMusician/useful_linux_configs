@@ -6,7 +6,7 @@ function M.setup()
   function _G.open_keybindings_cheatsheet()
     -- Path to the cheatsheet file - replace this with your actual path
     local cheatsheet_path = vim.fn.stdpath('config') .. '/keybindings-cheatsheet.md'
-
+    
     -- Create the cheatsheet file if it doesn't exist
     if vim.fn.filereadable(cheatsheet_path) == 0 then
       -- Content of the cheatsheet - this is what we generated earlier
@@ -156,30 +156,30 @@ function M.setup()
     if not cheatsheet_open then
       -- Save current window to return to it later
       local current_win = vim.api.nvim_get_current_win()
-
+      
       -- Create a vertical split on the right
       vim.cmd('vsplit ' .. cheatsheet_path)
-
+      
       -- Get the new window and configure it
       local cheatsheet_win = vim.api.nvim_get_current_win()
-
+      
       -- Set the width of the cheatsheet window to 60 columns
       vim.api.nvim_win_set_width(cheatsheet_win, 60)
-
+      
       -- Configure it to be a sidebar-like window
       vim.api.nvim_win_set_option(cheatsheet_win, 'number', false)
       vim.api.nvim_win_set_option(cheatsheet_win, 'relativenumber', false)
       vim.api.nvim_win_set_option(cheatsheet_win, 'cursorline', true)
       vim.api.nvim_win_set_option(cheatsheet_win, 'signcolumn', 'no')
-
+      
       -- Set it to read-only
       local buf = vim.api.nvim_win_get_buf(cheatsheet_win)
       vim.api.nvim_buf_set_option(buf, 'modifiable', false)
       vim.api.nvim_buf_set_option(buf, 'readonly', true)
-
+      
       -- Return to the original window
       vim.api.nvim_set_current_win(current_win)
-
+      
       -- Create a keybinding to close the cheatsheet
       vim.api.nvim_buf_set_keymap(buf, 'n', 'q', ':q<CR>', { noremap = true, silent = true })
       vim.api.nvim_buf_set_keymap(buf, 'n', '<Esc>', ':q<CR>', { noremap = true, silent = true })
@@ -194,3 +194,4 @@ function M.setup()
 end
 
 return M
+
