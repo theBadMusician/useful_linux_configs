@@ -99,7 +99,7 @@ vim.api.nvim_set_keymap('n', '<C-z>', 'u', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<C-z>', '<Esc>u', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-z>', '<Esc>u', { noremap = true, silent = true })
 
--- Map Ctrl+Alt+Z to redo 
+-- Map Ctrl+Alt+Z to redo
 vim.api.nvim_set_keymap('n', '<C-M-Z>', '<C-r>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<C-M-Z>', '<Esc><C-r>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-M-Z>', '<Esc><C-r>', { noremap = true, silent = true })
@@ -270,6 +270,7 @@ function _G.telescope_find_from_nerdtree_root()
     cwd = search_dir,
   })
 end
+
 -- Set up the key mapping
 vim.api.nvim_set_keymap('n', '<leader>fs', ':lua telescope_find_from_nerdtree_root()<CR>',
   { noremap = true, silent = true })
@@ -797,4 +798,89 @@ vim.keymap.set('n', '<leader>td', toggle_diagnostics, { noremap = true, silent =
 
 -- Import and setup the keybindings cheatsheet module
 require('keybindings_cheatsheet').setup()
+
+-- Function to execute the current file from NERDTree root directory
+local function execute_file()
+  local filetype = vim.bo.filetype
+  local filename = vim.fn.expand('%:p')
+
+  -- Get NERDTree root directory
+  local root_dir = nil
+  local success, result = pcall(function()
+    return vim.api.nvim_eval("g:NERDTree.ForCurrentTab().getRoot().path.str()")
+  end)
+
+  if success then
+    root_dir = result
+  else
+    vim.notify("Could not get NERDTree root directory, using current directory", vim.log.levels.WARN)
+    root_dir = vim.fn.getcwd()
+  end
+
+  -- Get relative path from root directory
+  local relative_path = filename
+  if root_dir and filename:sub(1, #root_dir) == root_dir then
+    relative_path = filename:sub(#root_dir + 2) -- +2 to account for the trailing slash
+  end
+
+  -- Mapping of filetypes to execution commands
+  local commands = {
+    python = 'python3 "' .. relative_path .. '"',
+    lua = 'lua "' .. relative_path .. '"',
+    javascript = 'node "' .. relative_path .. '"',
+    typescript = 'ts-node "' .. relative_path .. '"',
+    sh = 'bash "' .. relative_path .. '"',
+    rust = 'rustc "' .. relative_path .. '" -o /tmp/rustexec && /tmp/rustexec',
+    go = 'go run "' .. relative_path .. '"',
+    ruby = 'ruby "' .. relative_path .. '"',
+    php = 'php "' .. relative_path .. '"',
+    perl = 'perl "' .. relative_path .. '"',
+    java = 'javac "' .. relative_path .. '" && java "' .. vim.fn.expand('%:t:r') .. '"',
+    c = 'gcc "' .. relative_path .. '" -o /tmp/cexec && /tmp/cexec',
+    cpp = 'g++ "' .. relative_path .. '" -o /tmp/cppexec && /tmp/cppexec',
+  }
+
+  -- Get the command for the current filetype
+  local command = commands[filetype]
+
+  -- If no specific command is found, try to execute based on file permissions
+  if not command then
+    if vim.fn.executable(filename) == 1 then
+      command = '"./' .. relative_path .. '"'
+    else
+      vim.notify("Don't know how to execute filetype: " .. filetype, vim.log.levels.ERROR)
+      return
+    end
+  end
+
+  -- Save the current buffer before executing
+  vim.cmd('silent! write')
+
+  -- Create a unique buffer name for our terminal
+  local term_buf_name = "term_execute_" .. os.time()
+
+  -- Open a terminal with auto-close functionality
+  vim.cmd('belowright 15split | terminal bash -c "cd \\"' ..
+    root_dir ..
+    '\\" && ' .. command .. '; echo -e \\"\\n[Finished with exit code $?. Press ENTER to close terminal.]\\"; read"')
+
+  -- Get the buffer number of the new terminal
+  local term_bufnr = vim.api.nvim_get_current_buf()
+
+  -- Set up autocmd to handle terminal close
+  vim.api.nvim_create_autocmd("TermClose", {
+    buffer = term_bufnr,
+    callback = function()
+      vim.cmd("bdelete!")
+    end,
+    once = true
+  })
+
+  -- Enter insert mode in the terminal
+  vim.cmd('startinsert')
+end
+
+-- Add leader mapping
+vim.keymap.set('n', '<leader>r', execute_file,
+  { noremap = true, silent = true, desc = 'Execute current file from NERDTree root' })
 
