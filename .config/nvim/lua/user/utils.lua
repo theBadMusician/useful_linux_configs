@@ -100,22 +100,42 @@ function _G.execute_file()
   -- Save the current buffer before executing
   vim.cmd('silent! write')
 
-  -- Create a unique buffer name for our terminal
-  local term_buf_name = "term_execute_" .. os.time()
-
-  -- Open a terminal with auto-close functionality
+  -- Open a terminal without the auto-close functionality
   vim.cmd('belowright 15split | terminal bash -c "cd \\"' ..
-    root_dir ..
-    '\\" && ' .. command .. '; echo -e \\"\\n[Finished with exit code $?. Press ENTER to close terminal.]\\"; read"')
+    root_dir .. '\\" && ' .. command .. '; echo -e \\"\\n[Finished with exit code $?. Press q to close.]\\""')
 
   -- Get the buffer number of the new terminal
   local term_bufnr = vim.api.nvim_get_current_buf()
 
-  -- Set up autocmd to handle terminal close
-  vim.api.nvim_create_autocmd("TermClose", {
+  -- Set terminal to normal mode after command execution to allow scrolling
+  -- Create a unique group name to avoid conflicts
+  local augroup_name = "TermExec" .. term_bufnr
+  vim.api.nvim_create_augroup(augroup_name, { clear = true })
+
+  -- After job completes, switch to normal mode and set up 'q' to close
+  vim.api.nvim_create_autocmd("TermOpen", {
     buffer = term_bufnr,
+    group = augroup_name,
     callback = function()
-      vim.cmd("bdelete!")
+      -- After terminal job completes, switch to normal mode
+      vim.api.nvim_create_autocmd("TermClose", {
+        buffer = term_bufnr,
+        group = augroup_name,
+        callback = function()
+          vim.cmd("normal! i")  -- Ensure we're in insert mode first
+          vim.cmd("stopinsert") -- Then switch to normal mode
+
+          -- Map 'q' key to close the terminal window in this specific buffer
+          vim.api.nvim_buf_set_keymap(term_bufnr, 'n', 'q',
+            ':bd!<CR>', { noremap = true, silent = true })
+
+          -- Display a helpful message
+          vim.api.nvim_echo(
+            { { "Terminal finished. You can scroll with normal Vim motions. Press 'q' to close.", "WarningMsg" } }, false,
+            {})
+        end,
+        once = true
+      })
     end,
     once = true
   })
@@ -128,3 +148,4 @@ end
 M.packer_bootstrap = packer_bootstrap
 
 return M
+
