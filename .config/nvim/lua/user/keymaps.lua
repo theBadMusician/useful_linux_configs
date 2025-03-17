@@ -58,3 +58,20 @@ vim.keymap.set('n', '<leader>td', toggle_diagnostics, { noremap = true, silent =
 
 -- Execute current file
 vim.keymap.set('n', '<leader>r', execute_file, { noremap = true, silent = true, desc = 'Execute current file from NERDTree root' })
+
+-- For normal mode delete operations
+vim.keymap.set('n', 'x', '"_x')    -- Delete character under cursor
+vim.keymap.set('n', 'X', '"_X')    -- Delete character before cursor
+vim.keymap.set('n', 'd', '"_d')    -- Delete operator
+vim.keymap.set('n', 'D', '"_D')    -- Delete to end of line
+vim.keymap.set('n', 'dd', '"_dd')  -- Delete line
+vim.keymap.set('n', 'c', '"_c')    -- Change operator
+vim.keymap.set('n', 'C', '"_C')    -- Change to end of line
+vim.keymap.set('n', 'cc', '"_cc')  -- Change line
+
+-- For visual mode delete operations
+vim.keymap.set('v', 'x', '"_x')    -- Delete selected text
+vim.keymap.set('v', 'd', '"_d')    -- Delete selected text
+vim.keymap.set('v', 'D', '"_D')    -- Delete to end of line on selected lines
+vim.keymap.set('v', 'c', '"_c')    -- Change selected text
+vim.keymap.set('v', 'C', '"_C')    -- Change to end of line on selected lines
