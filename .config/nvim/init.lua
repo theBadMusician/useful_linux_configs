@@ -25,6 +25,9 @@ require('user.lsp')
 -- Load colorscheme after everything else
 require('user.colorscheme')
 
+-- Load bufferline configuration again to override colorscheme
+require('user.config.bufferline')
+
 -- Load keybindings cheatsheet
 require('user.keybindings_cheatsheet').setup()
 
