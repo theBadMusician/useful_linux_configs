@@ -151,4 +151,16 @@ shopt -s histappend  # In Ubuntu this is already set by default
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # Attach to a tmux session if there is one, else open a new session 
-if [[ -z "$TMUX" ]]; then tmux attach || tmux new-session; fi
+# if [[ -z "$TMUX" ]]; then tmux attach || tmux new-session; fi
+if [[ -z "$TMUX" ]]; then
+  read -p "Do you want to open/attach a tmux session? (y/N): " choice
+  case "$choice" in
+    [yY][eE][sS]|[yY]) 
+      tmux attach || tmux new-session
+      ;;
+    *) 
+      echo "Aborted."
+      ;;
+  esac
+fi
+
