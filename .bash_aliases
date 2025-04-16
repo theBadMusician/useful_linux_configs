@@ -16,6 +16,7 @@ alias git_tree="git log --graph --oneline --decorate"
 # ========[ NVIDIA Utils ]======== #
 alias cgpu="watch -d -n 1 nvidia-smi"
 alias cgpu_intel="sudo intel_gpu_top"
+
 ## ========[ Docker ]======== #
 #alias rm_docker_conts="sudo docker ps -a | awk ' NR>1 { print \$1 } ' | sudo xargs docker stop && sudo docker ps -a | awk ' NR>1 { print \$1 } ' | sudo xargs docker rm"
 #alias dompose="sudo docker-compose"
@@ -50,6 +51,9 @@ function loop_video() {
 alias venv_activate="source ./.venv/bin/activate"
 alias display_info="inxi -GSaz --vs -za && glxinfo -B"
 alias card_info="ls -l /dev/dri/by-path/ && sudo dmesg | grep -i nvidia && ls -l /sys/class/drm/"
+
+# Wake up main screen manually
+alias wake_up_mon="xrandr -d :1 --output DP-0 --auto"
 
 # ========[ Quick Setups ]======== #
 alias mon_setup="xrandr --output HDMI-0 --auto  --mode 1920x1080 --scale 1.3333x1.333 --pos 0x407 && xrandr --output DP-0 --auto --pos 2560x407 && xrandr --output DP-2 --auto --pos 5120x1024 && xrandr --output DP-4 --auto --pos 5120x0"
