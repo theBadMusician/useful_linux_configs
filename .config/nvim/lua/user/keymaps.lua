@@ -75,3 +75,11 @@ vim.keymap.set('v', 'd', '"_d')    -- Delete selected text
 vim.keymap.set('v', 'D', '"_D')    -- Delete to end of line on selected lines
 vim.keymap.set('v', 'c', '"_c')    -- Change selected text
 vim.keymap.set('v', 'C', '"_C')    -- Change to end of line on selected lines
+
+--> Tabbing multiple lines <--
+-- Shift selected lines right with Tab
+vim.api.nvim_set_keymap('v', '<Tab>', '>gv', { noremap = true, silent = true })
+-- Shift selected lines left with Shift+Tab
+vim.api.nvim_set_keymap('v', '<S-Tab>', '<gv', { noremap = true, silent = true })
+
+
