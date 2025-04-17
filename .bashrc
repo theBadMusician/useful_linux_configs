@@ -150,17 +150,18 @@ shopt -s histappend  # In Ubuntu this is already set by default
 # After each command, append to the history file and reread it
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
-# Attach to a tmux session if there is one, else open a new session 
-# if [[ -z "$TMUX" ]]; then tmux attach || tmux new-session; fi
+
+# Prompt to abort, attach to an existing tmux session, or create a new one
 if [[ -z "$TMUX" ]]; then
-  read -p "Do you want to open/attach a tmux session? (y/N): " choice
+  echo "Do you want to open/attach a tmux session?"
+  printf "Options: 1) Abort  2) Attach/New  3) New\n\n"
+  read -p "Selection [1]: " choice
+
   case "$choice" in
-    [yY][eE][sS]|[yY]) 
-      tmux attach || tmux new-session
-      ;;
-    *) 
-      echo "Aborted."
-      ;;
+    2) tmux attach || tmux new-session ;;
+    3) tmux new-session ;;
+    *|1) echo "Aborted." ;;
   esac
 fi
+
 
