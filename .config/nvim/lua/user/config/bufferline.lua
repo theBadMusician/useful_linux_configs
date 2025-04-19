@@ -1,17 +1,34 @@
 -- ~/.config/nvim/lua/config/bufferline.lua
 -- Bufferline Configuration
 
+-- Function to close the current buffer
+local function smart_close(bufnr)
+  local current = vim.api.nvim_get_current_buf()
+  if current == bufnr then
+    vim.cmd("bp")
+    vim.schedule(function()
+      vim.cmd("bd " .. bufnr)
+    end)
+  else
+    vim.schedule(function()
+      vim.cmd("bd " .. bufnr)
+    end)
+  end
+end
+
 -- Bufferline setup - configuration only, not colors
 require("bufferline").setup {
   options = {
     -- Enable close button
-    close_command = "bdelete! %d",
-    right_mouse_command = "bdelete! %d",
+    close_command = function(bufnr)
+      smart_close(bufnr)
+    end,
+    right_mouse_command = function(bufnr)
+      smart_close(bufnr)
+    end,
 
-    -- Separator style: 'slant' | 'thick' | 'thin' | { 'any', 'any' }
     separator_style = "slant",
     -- separator_style = "thick",
-
 
     -- Show buffer numbers
     numbers = "ordinal",
