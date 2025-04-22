@@ -82,4 +82,7 @@ vim.api.nvim_set_keymap('v', '<Tab>', '>gv', { noremap = true, silent = true })
 -- Shift selected lines left with Shift+Tab
 vim.api.nvim_set_keymap('v', '<S-Tab>', '<gv', { noremap = true, silent = true })
 
+-- Cut (delete and copy to clipboard)
+vim.api.nvim_set_keymap('n', '<C-x>', '"+d', { noremap = true, silent = true })  -- Normal mode
+vim.api.nvim_set_keymap('v', '<C-x>', '"+d', { noremap = true, silent = true })  -- Visual mode
 
