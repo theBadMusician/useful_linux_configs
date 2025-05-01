@@ -164,4 +164,23 @@ if [[ -z "$TMUX" ]]; then
   esac
 fi
 
+### Enable Vim-style editing in the shell
+set -o vi
 
+# Show mode in the prompt (Insert/Normal)
+bind 'set show-mode-in-prompt on'
+bind 'set vi-ins-mode-string \1\e[6 q\2'
+bind 'set vi-cmd-mode-string \1\e[2 q\2'
+
+# Movement
+bind '"jj": vi-movement-mode'               # jj → Escape (exit insert mode)
+bind -m vi-command '"H": backward-word'     # Shift+h → back 1 word
+bind -m vi-command '"L": forward-word'      # Shift+l → forward 1 word
+bind -m vi-command '"+": end-of-line'       # + → go to end of line
+
+# Map J/K to next/previous history entry
+# bind -m vi-command '"J": next-history'
+# bind -m vi-command '"K": previous-history'
+
+# faster Escape key
+bind '"\e": vi-movement-mode'
