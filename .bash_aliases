@@ -51,6 +51,7 @@ function loop_video() {
 alias venv_activate="source ./.venv/bin/activate"
 alias display_info="inxi -GSaz --vs -za && glxinfo -B"
 alias card_info="ls -l /dev/dri/by-path/ && sudo dmesg | grep -i nvidia && ls -l /sys/class/drm/"
+alias batmon="watch -d -n 1 'upower -i /org/freedesktop/UPower/devices/battery_BAT0'"
 
 # Wake up main screen manually
 alias wake_up_mon="xrandr -d :1 --output DP-0 --auto"
