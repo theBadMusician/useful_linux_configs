@@ -67,7 +67,10 @@ curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh 
 sudo apt install fzf
 
 # Install neovim
-sudo apt install neovim ripgrep fd-find # For Ubuntu/Debian
+sudo apt install neovim ripgrep fd-find zip # For Ubuntu/Debian
+
+# Install Python pkgs
+sudo apt install python3-pip python3-venv 
 
 ## Install Docker
 #sudo apt-get update
