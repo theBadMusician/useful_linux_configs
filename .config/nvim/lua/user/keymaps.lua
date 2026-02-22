@@ -37,10 +37,11 @@ vim.api.nvim_set_keymap('v', '<C-z>', '<Esc>u', { noremap = true, silent = true 
 vim.api.nvim_set_keymap('v', '<C-M-Z>', '<Esc><C-r>', { noremap = true, silent = true })
 
 -- Insert mode mappings
-vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-q>', '<Esc>ggVG', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-z>', '<Esc>u', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-M-Z>', '<Esc><C-r>', { noremap = true, silent = true })
+vim.keymap.set('v', 'p', '"_dP',            { noremap = true, silent = true })
+vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
+vim.keymap.set('i', '<C-q>', '<Esc>ggVG',   { noremap = true, silent = true })
+vim.keymap.set('i', '<C-z>', '<Esc>u',      { noremap = true, silent = true })
+vim.keymap.set('i', '<C-M-Z>', '<Esc><C-r>',{ noremap = true, silent = true })
 
 -- File explorer
 vim.keymap.set('n', '<leader>e', ':NERDTreeToggle<CR>')
