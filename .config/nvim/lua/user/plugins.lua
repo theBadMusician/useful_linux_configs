@@ -54,12 +54,7 @@ return require('packer').startup(function(use)
   use 'github/copilot.vim'
 
   -- Vertical indentation stripes
-  use {
-    "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      require('ibl').setup()
-    end
-  }
+  use "lukas-reineke/indent-blankline.nvim"
 
   -- LSP and completion
   use 'neovim/nvim-lspconfig'             -- LSP configuration

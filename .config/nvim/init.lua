@@ -24,6 +24,7 @@ require('user.lsp')
 
 -- Load colorscheme after everything else
 require('user.colorscheme')
+require('user.config.ibl') -- Load indent-blankline config after colorscheme
 
 -- Load bufferline configuration again to override colorscheme
 require('user.config.bufferline')
