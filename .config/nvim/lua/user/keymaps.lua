@@ -37,10 +37,11 @@ vim.api.nvim_set_keymap('v', '<C-z>', '<Esc>u', { noremap = true, silent = true 
 vim.api.nvim_set_keymap('v', '<C-M-Z>', '<Esc><C-r>', { noremap = true, silent = true })
 
 -- Insert mode mappings
-vim.keymap.set('v', 'p', '"_dP',            { noremap = true, silent = true })
+vim.keymap.set('v', 'p', 'P', { noremap = true, silent = true })
+-- vim.keymap.set('v', 'p', '"_dP',            { noremap = true, silent = true })
 vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
-vim.keymap.set('i', '<C-q>', '<Esc>ggVG',   { noremap = true, silent = true })
-vim.keymap.set('i', '<C-z>', '<Esc>u',      { noremap = true, silent = true })
+vim.keymap.set('i', '<C-q>', '<Esc>ggVG', { noremap = true, silent = true })
+vim.keymap.set('i', '<C-z>', '<Esc>u', { noremap = true, silent = true })
 vim.keymap.set('i', '<C-M-Z>', '<Esc><C-r>',{ noremap = true, silent = true })
 
 -- File explorer
@@ -88,3 +89,40 @@ vim.api.nvim_set_keymap('n', '<S-Tab>', '<<', { noremap = true, silent = true })
 -- Cut (delete and copy to clipboard)
 vim.api.nvim_set_keymap('n', '<C-x>', '"+d', { noremap = true, silent = true })  -- Normal mode
 vim.api.nvim_set_keymap('v', '<C-x>', '"+d', { noremap = true, silent = true })  -- Visual mode
+
+-- Force clipboard initialization on startup to fix the first-paste bug
+vim.fn.getreg('+')
+
+-- Intercept terminal bracketed paste to prevent clipboard overwrite in visual mode
+local default_paste = vim.paste
+local is_visual_paste = false
+local saved_reg_plus, saved_reg_star, saved_reg_unnamed
+
+vim.paste = function(lines, phase)
+  local mode = vim.api.nvim_get_mode().mode
+  
+  -- Phase -1 is a single-chunk paste, Phase 1 is the start of a multi-chunk paste
+  if phase == -1 or phase == 1 then
+    is_visual_paste = (mode == 'v' or mode == 'V' or mode == '\22')
+    if is_visual_paste then
+      -- Back up the clipboards before Neovim natively overwrites them
+      saved_reg_plus = vim.fn.getreg('+')
+      saved_reg_star = vim.fn.getreg('*')
+      saved_reg_unnamed = vim.fn.getreg('"')
+    end
+  end
+
+  -- Let Neovim do its perfect native visual replacement (keeps spacing intact)
+  local result = default_paste(lines, phase)
+
+  -- Phase -1 is a single-chunk paste, Phase 3 is the end of a multi-chunk paste
+  if is_visual_paste and (phase == -1 or phase == 3) then
+    -- Instantly restore the backed-up clipboards
+    vim.fn.setreg('+', saved_reg_plus)
+    vim.fn.setreg('*', saved_reg_star)
+    vim.fn.setreg('"', saved_reg_unnamed)
+    is_visual_paste = false -- Reset for the next paste
+  end
+
+  return result
+end
