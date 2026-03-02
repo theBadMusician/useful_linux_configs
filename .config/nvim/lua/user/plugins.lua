@@ -56,6 +56,12 @@ return require('packer').startup(function(use)
   -- Vertical indentation stripes
   use "lukas-reineke/indent-blankline.nvim"
 
+  -- Show current context at the top of the window
+  use {
+    'nvim-treesitter/nvim-treesitter-context',
+    requires = { 'nvim-treesitter/nvim-treesitter' }
+  }
+
   -- LSP and completion
   use 'neovim/nvim-lspconfig'             -- LSP configuration
   use 'hrsh7th/nvim-cmp'                  -- Completion plugin

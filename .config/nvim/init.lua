@@ -18,6 +18,7 @@ require('user.config.bufferline')
 require('user.config.gitsigns')
 require('user.config.comment')
 require('user.config.telescope_git')
+require('user.config.treesitter-context')
 
 -- Load LSP configuration
 require('user.lsp')
