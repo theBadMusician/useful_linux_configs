@@ -1,8 +1,15 @@
--- ~/.config/nvim/lua/config/treesitter.lua
+-- ~/.config/nvim/lua/user/config/treesitter.lua
 -- Treesitter configuration
 
+-- Safely require the plugin
+local status_ok, treesitter = pcall(require, "nvim-treesitter.configs")
+if not status_ok then
+  -- Exit the script quietly if the plugin isn't installed yet
+  return
+end
+
 -- Treesitter config
-require('nvim-treesitter.configs').setup {
+treesitter.setup {
   -- A list of parser names, or "all" (the listed parsers MUST always be installed)
   ensure_installed = { "python", "c", "cpp", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
 
@@ -10,7 +17,6 @@ require('nvim-treesitter.configs').setup {
   sync_install = false,
 
   -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
   auto_install = false,
 
   highlight = {
@@ -25,8 +31,6 @@ require('nvim-treesitter.configs').setup {
       end
     end,
 
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
     additional_vim_regex_highlighting = false,
   },
 }
