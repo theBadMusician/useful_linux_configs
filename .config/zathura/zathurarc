@@ -1,0 +1,12 @@
+set highlight-color "#ffff00"
+set highlight-active-color "#ffff00"
+set highlight-transparency 0.15
+
+# # Enable recoloring by default
+# set recolor true
+#
+# # Set the background color (replaces the white paper)
+# set recolor-lightcolor "#1E1E1E" 
+#
+# # Set the text color (replaces the black ink)
+# set recolor-darkcolor "#D4D4D4"

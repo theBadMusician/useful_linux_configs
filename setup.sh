@@ -69,6 +69,9 @@ sudo apt install fzf
 # Install neovim
 sudo apt install neovim ripgrep fd-find zip # For Ubuntu/Debian
 
+# Install LaTeX and PDF viewer
+sudo apt install zathura zathura-pdf-poppler texlab xdotool texlive-full # texlive-base
+
 # Install Python pkgs
 sudo apt install python3-pip python3-venv 
 

@@ -62,6 +62,21 @@ return require('packer').startup(function(use)
     requires = { 'nvim-treesitter/nvim-treesitter' }
   }
 
+  -- LaTeX support
+  use {
+    'lervag/vimtex',
+    setup = function()
+      -- Set Zathura as the default PDF viewer
+      vim.g.vimtex_view_method = 'zathura'
+
+      -- Use latexmk for continuous compilation
+      vim.g.vimtex_compiler_method = 'latexmk'
+
+      -- Optional: Disable the quickfix window from automatically opening on warnings
+      vim.g.vimtex_quickfix_mode = 0
+    end
+  }
+
   -- LSP and completion
   use 'neovim/nvim-lspconfig'             -- LSP configuration
   use 'hrsh7th/nvim-cmp'                  -- Completion plugin

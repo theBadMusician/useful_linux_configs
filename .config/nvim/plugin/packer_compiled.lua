@@ -125,6 +125,11 @@ _G.packer_plugins = {
     path = "/home/beng/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
+  ["indent-blankline.nvim"] = {
+    loaded = true,
+    path = "/home/beng/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
+    url = "https://github.com/lukas-reineke/indent-blankline.nvim"
+  },
   ["lsp-colors.nvim"] = {
     loaded = true,
     path = "/home/beng/.local/share/nvim/site/pack/packer/start/lsp-colors.nvim",
@@ -170,6 +175,11 @@ _G.packer_plugins = {
     path = "/home/beng/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
+  ["nvim-treesitter-context"] = {
+    loaded = true,
+    path = "/home/beng/.local/share/nvim/site/pack/packer/start/nvim-treesitter-context",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-context"
+  },
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/home/beng/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
@@ -200,6 +210,12 @@ _G.packer_plugins = {
     path = "/home/beng/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
   },
+  vimtex = {
+    loaded = true,
+    needs_bufread = true,
+    path = "/home/beng/.local/share/nvim/site/pack/packer/opt/vimtex",
+    url = "https://github.com/lervag/vimtex"
+  },
   ["vscode.nvim"] = {
     loaded = true,
     path = "/home/beng/.local/share/nvim/site/pack/packer/start/vscode.nvim",
@@ -208,6 +224,13 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Setup for: vimtex
+time([[Setup for vimtex]], true)
+try_loadstring("\27LJ\2\nê\1\0\0\2\0\a\0\r6\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0'\1\5\0=\1\4\0006\0\0\0009\0\1\0)\1\0\0=\1\6\0K\0\1\0\25vimtex_quickfix_mode\flatexmk\27vimtex_compiler_method\fzathura\23vimtex_view_method\6g\bvim\0", "setup", "vimtex")
+time([[Setup for vimtex]], false)
+time([[packadd for vimtex]], true)
+vim.cmd [[packadd vimtex]]
+time([[packadd for vimtex]], false)
 -- Config for: Comment.nvim
 time([[Config for Comment.nvim]], true)
 try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")

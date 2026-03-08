@@ -4,6 +4,9 @@
 -- Set leader key to space
 vim.g.mapleader = ' '
 
+-- Define your local leader (e.g., using a comma)
+vim.g.maplocalleader = ","
+
 -- Normal mode mappings
 -- Navigation shortcuts
 vim.api.nvim_set_keymap('n', '+', '$', { noremap = true, silent = true })

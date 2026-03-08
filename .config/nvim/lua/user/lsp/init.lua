@@ -4,29 +4,29 @@
 -- Define on_attach function locally first
 local on_attach = function(client, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
-  
+
   -- Go to definitions and references
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-  
+
   -- Documentation and help
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', '<leader>ws', vim.lsp.buf.signature_help, bufopts)
-  
+
   -- Workspace management
   vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
   vim.keymap.set('n', '<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
-  
+
   -- Refactoring and code actions
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-  
+
   -- Formatting
   vim.keymap.set('n', '<leader>f', function()
     vim.lsp.buf.format { async = true }
@@ -50,6 +50,7 @@ require("mason-lspconfig").setup({
     "lua_ls", -- Lua
     "pylsp",  -- Python
     "clangd", -- C/C++
+    "texlab", -- LaTeX
     -- Add other language servers as needed:
     -- "rust_analyzer",  -- Rust
     -- "gopls",          -- Go
@@ -59,6 +60,9 @@ require("mason-lspconfig").setup({
   },
   automatic_installation = true,
 })
+
+-- Load snippets from friendly-snippets
+require("luasnip.loaders.from_vscode").lazy_load()
 
 -- Configure nvim-cmp
 local cmp = require('cmp')
@@ -127,4 +131,28 @@ lspconfig.pylsp.setup {
 lspconfig.clangd.setup {
   on_attach = on_attach,
   capabilities = capabilities,
+}
+
+-- LaTeX autocomplete using texlab
+lspconfig.texlab.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+
+  settings = {
+    texlab = {
+      build = {
+        -- Let VimTeX handle the compiling, so we tell texlab not to build on save
+        onSave = false,
+      },
+      forwardSearch = {
+        -- Let VimTeX handle the forward search as well
+        executable = "zathura",
+        args = {
+          "--synctex-forward",
+          "%l:1:%f",
+          "%p"
+        }
+      }
+    }
+  }
 }
