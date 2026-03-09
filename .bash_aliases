@@ -43,7 +43,6 @@ alias cgpu_intel="sudo intel_gpu_top"
 alias xcopy="xclip -selection clipboard"
 alias lsdu="ls | xargs du -sh"
 alias gource_viz="gource -a 0.01 -s 0.001 --max-files 0"
-alias unzip="tar -xvzf"
 alias tmuxattach="tmux attach"
 function loop_video() {
   mplayer -fs -loop 0 $1
