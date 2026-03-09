@@ -1,5 +1,15 @@
 [user]
-	name = Benjaminas Visockis
-	email = benjamvi@stud.ntnu.no
+	name = ""
+	email = ""
 [credential]
 	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+[init]
+	defaultBranch = master
+[core]
+  editor = vim
+[alias]
+  st   = status
+  cm   = commit
+  co   = checkout
+  br   = branch
+  tree = log --graph --pretty=format:'%Cred%h%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an%Creset>' --abrev-commit
