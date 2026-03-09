@@ -74,6 +74,11 @@ return require('packer').startup(function(use)
 
       -- Optional: Disable the quickfix window from automatically opening on warnings
       vim.g.vimtex_quickfix_mode = 0
+
+      -- Set the default engine to LuaLaTeX globally
+      vim.g.vimtex_compiler_latexmk_engines = {
+        _ = '-lualatex'
+      }
     end
   }
 
