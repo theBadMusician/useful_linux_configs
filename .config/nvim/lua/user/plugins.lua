@@ -79,6 +79,17 @@ return require('packer').startup(function(use)
       vim.g.vimtex_compiler_latexmk_engines = {
         _ = '-lualatex'
       }
+
+      -- Configure latexmk options to include -shell-escape
+      vim.g.vimtex_compiler_latexmk = {
+        options = {
+          '-verbose',
+          '-file-line-error',
+          '-synctex=1',
+          '-interaction=nonstopmode',
+          '-shell-escape', -- flag for minted/pygmentize
+        },
+      }
     end
   }
 
