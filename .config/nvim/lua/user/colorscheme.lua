@@ -59,7 +59,7 @@ vim.g.codeschool_contrast_dark = "hard" -- Hard, medium, or soft
 
 -- Make background darker
 vim.cmd([[
-  hi Normal guibg=#0a0a0a
+  hi Normal guibg=#000000
   hi SignColumn guibg=#0a0a0a
   hi NormalFloat guibg=#0a0a0a
 
