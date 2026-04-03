@@ -47,8 +47,18 @@ vim.keymap.set('i', '<C-q>', '<Esc>ggVG', { noremap = true, silent = true })
 vim.keymap.set('i', '<C-z>', '<Esc>u', { noremap = true, silent = true })
 vim.keymap.set('i', '<C-M-Z>', '<Esc><C-r>',{ noremap = true, silent = true })
 
--- File explorer
+-- File explorer (NERDTree)
 vim.keymap.set('n', '<leader>e', ':NERDTreeToggle<CR>')
+-- Jump mappings (for NERDTree buffer)
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "nerdtree",
+  callback = function()
+    local opts = { noremap = true, silent = true, buffer = true }
+    -- Jump 20 lines down and up in NERDTree
+    vim.keymap.set('n', '<C-j>', '20j', opts)
+    vim.keymap.set('n', '<C-k>', '20k', opts)
+  end,
+})
 
 -- Custom commands
 vim.keymap.set('n', '<leader>ss', ':SaveAndSource<CR>', { noremap = true, silent = true })
