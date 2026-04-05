@@ -4,15 +4,24 @@
 -- Editor behavior
 vim.opt.number = true
 vim.opt.relativenumber = false
-vim.opt.expandtab = true
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
+
+-- Tabs as spaces with 2 spaces per tab
+-- vim.opt.expandtab = true
+-- vim.opt.shiftwidth = 2
+-- vim.opt.tabstop = 2
+
+-- Tabs as actual tabs with a width of 4 spaces
+vim.opt.expandtab = false
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+
 vim.opt.smartindent = true
 vim.opt.wrap = false
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.scrolloff = 8
 vim.opt.updatetime = 300
 vim.opt.mouse = 'a'
+vim.opt.modeline = false
 
 -- File handling
 vim.opt.encoding = 'UTF-8'
@@ -35,7 +44,7 @@ vim.diagnostic.config({
 
 -- Apply specific settings only for LaTeX files
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "tex", "plaintex" },
+  pattern = { "tex", "plaintex", "md" },
   callback = function()
     -- Enable soft wrapping
     vim.opt_local.wrap = true
